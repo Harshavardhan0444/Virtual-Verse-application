@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curator Control Center – VirtualVerse Admin</title>
+  <meta name="description" content="Administrative control center for VirtualVerse Chief Curators. Manage artifacts, collections, exhibition rooms, and quiz question databases.">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Universal Cosmic Navbar -->
+  <header class="cosmic-navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-brand-logo"><i class="fa-solid fa-cube"></i></div>
+      <span>Virtual<span class="brand-accent">Verse</span> <small style="font-size: 0.65rem; color: var(--accent-gold); letter-spacing: 0.1em;">CURATOR</small></span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="museum.html" class="nav-link">3D Museum</a></li>
+        <li><a href="collections.html" class="nav-link">Collections</a></li>
+        <li><a href="guided-tour.html" class="nav-link">Guided Tour</a></li>
+        <li><a href="quiz.html" class="nav-link">Quiz Arena</a></li>
+        <li><a href="admin.html" class="nav-link active">Admin</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="nav-search-btn" title="Search Archive">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="nav-icon-btn" id="nav-audio-toggle" title="Toggle Sound">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+      <div id="nav-user-slot"></div>
+    </div>
+  </header>
+
+  <main class="dashboard-container">
+    <!-- Security Limitations Notice -->
+    <div class="security-disclaimer-banner">
+      <i class="fa-solid fa-shield-halved"></i>
+      <div>
+        <strong>Curator Administration Boundary Notice:</strong> This admin console performs CRUD operations persistently in client-side HTML5 LocalStorage. In an enterprise production deployment, administrative authentication and state operations would be verified via an encrypted token backend and PostgreSQL database.
+      </div>
+    </div>
+
+    <!-- DASHBOARD HEADER -->
+    <div class="dashboard-header">
+      <div class="dashboard-title-group">
+        <span class="section-tag">High Curator Authority</span>
+        <h1>Curator Control Center</h1>
+        <p>Manage the museum artifact catalog, exhibition collections, architectural sectors, and quiz curriculum.</p>
+      </div>
+
+      <div style="display: flex; gap: 0.8rem; align-items: center;">
+        <button id="admin-reset-demo-btn" class="cyber-btn btn-danger btn-sm">
+          <i class="fa-solid fa-rotate-left"></i> Re-Seed Demo Defaults
+        </button>
+        <a href="museum.html" class="cyber-btn btn-primary btn-sm">
+          <i class="fa-solid fa-eye"></i> Launch Museum Hall
+        </a>
+      </div>
+    </div>
+
+    <!-- KPI STATS SUMMARY (6 METRICS) -->
+    <div class="kpi-stats-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon-wrap"><i class="fa-solid fa-cube"></i></div>
+        <div class="kpi-card-data">
+          <span id="admin-stat-artifacts" class="kpi-number">32</span>
+          <span class="kpi-label">Total Artifacts</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon-wrap"><i class="fa-solid fa-boxes-stacked"></i></div>
+        <div class="kpi-card-data">
+          <span id="admin-stat-collections" class="kpi-number">8</span>
+          <span class="kpi-label">Collections</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon-wrap"><i class="fa-solid fa-door-open"></i></div>
+        <div class="kpi-card-data">
+          <span id="admin-stat-rooms" class="kpi-number">5</span>
+          <span class="kpi-label">3D Sectors</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon-wrap"><i class="fa-solid fa-users"></i></div>
+        <div class="kpi-card-data">
+          <span id="admin-stat-users" class="kpi-number">2</span>
+          <span class="kpi-label">Demo Users</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon-wrap"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="kpi-card-data">
+          <span id="admin-stat-quizzes" class="kpi-number">14</span>
+          <span class="kpi-label">Quiz Trials</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon-wrap"><i class="fa-solid fa-compass"></i></div>
+        <div class="kpi-card-data">
+          <span id="admin-stat-views" class="kpi-number">86</span>
+          <span class="kpi-label">Exploration Views</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN TABS NAVIGATION -->
+    <div class="admin-tabs-nav">
+      <button class="admin-tab-btn active" data-tab="artifacts">
+        <i class="fa-solid fa-cube"></i> Manage Artifacts
+      </button>
+      <button class="admin-tab-btn" data-tab="collections">
+        <i class="fa-solid fa-boxes-stacked"></i> Manage Collections
+      </button>
+      <button class="admin-tab-btn" data-tab="quiz">
+        <i class="fa-solid fa-graduation-cap"></i> Manage Quiz Bank
+      </button>
+      <button class="admin-tab-btn" data-tab="rooms">
+        <i class="fa-solid fa-door-open"></i> Museum Sectors
+      </button>
+      <button class="admin-tab-btn" data-tab="logs">
+        <i class="fa-solid fa-scroll"></i> Audit Logs
+      </button>
+    </div>
+
+    <!-- PANE 1: ARTIFACTS MANAGEMENT -->
+    <div id="tab-pane-artifacts" class="admin-tab-pane">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <input type="text" id="admin-artifact-search" class="cyber-input" placeholder="Search catalog..." style="width: 280px;">
+          <span id="admin-artifacts-count" class="table-badge status-ok">32 Relics</span>
+        </div>
+        <button id="admin-add-artifact-btn" class="cyber-btn btn-primary btn-sm">
+          <i class="fa-solid fa-plus"></i> Add New Cosmic Relic
+        </button>
+      </div>
+
+      <div class="table-responsive-wrapper">
+        <table class="cyber-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Relic Name</th>
+              <th>Category</th>
+              <th>Origin</th>
+              <th>Material</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-artifacts-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PANE 2: COLLECTIONS MANAGEMENT -->
+    <div id="tab-pane-collections" class="admin-tab-pane hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3>Exhibition Collections</h3>
+        <button id="admin-add-col-btn" class="cyber-btn btn-primary btn-sm">
+          <i class="fa-solid fa-plus"></i> Create New Collection
+        </button>
+      </div>
+
+      <div class="table-responsive-wrapper">
+        <table class="cyber-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Sector Assigned</th>
+              <th>Exhibit Count</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-collections-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PANE 3: QUIZ MANAGEMENT -->
+    <div id="tab-pane-quiz" class="admin-tab-pane hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3>Educational Quiz Question Repository</h3>
+        <button id="admin-add-quiz-btn" class="cyber-btn btn-primary btn-sm">
+          <i class="fa-solid fa-plus"></i> Add Question
+        </button>
+      </div>
+
+      <div class="table-responsive-wrapper">
+        <table class="cyber-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Category</th>
+              <th>Question Statement</th>
+              <th>Correct Choice</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-quiz-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PANE 4: ROOMS ARCHITECTURE -->
+    <div id="tab-pane-rooms" class="admin-tab-pane hidden">
+      <div style="margin-bottom: 1.5rem;">
+        <h3>Architectural Dimensions & Portals</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Overview of the 5 procedural 3D environments rendered in Three.js.</p>
+      </div>
+
+      <div class="rooms-modal-grid" style="margin-top: 1rem;">
+        <div class="room-nav-card" style="border-top: 3px solid #F59E0B;">
+          <div class="room-nav-header"><span class="room-nav-code">ARCH-01</span></div>
+          <h3>Ancient Civilization Hall</h3>
+          <p>Colonnades, sandstone pillars, amber torchlights, Egyptian & Greco-Roman relics.</p>
+          <div class="room-nav-action"><span class="table-badge">Active Room</span></div>
+        </div>
+        <div class="room-nav-card" style="border-top: 3px solid #00E5FF;">
+          <div class="room-nav-header"><span class="room-nav-code">COSMO-02</span></div>
+          <h3>Space Exploration Chamber</h3>
+          <p>Cosmic nebula starfield, Saturn rings, spacecraft, Voyager probes.</p>
+          <div class="room-nav-action"><span class="table-badge">Active Room</span></div>
+        </div>
+        <div class="room-nav-card" style="border-top: 3px solid #8B5CF6;">
+          <div class="room-nav-header"><span class="room-nav-code">CYBER-03</span></div>
+          <h3>Digital Art Dimension</h3>
+          <p>Tesseract hypercube projections, glowing neon polyhedra, holographic grids.</p>
+          <div class="room-nav-action"><span class="table-badge">Active Room</span></div>
+        </div>
+        <div class="room-nav-card" style="border-top: 3px solid #10B981;">
+          <div class="room-nav-header"><span class="room-nav-code">NEXUS-04</span></div>
+          <h3>Science & Innovation Lab</h3>
+          <p>DNA macromolecules, quantum computing core, Galileo telescope.</p>
+          <div class="room-nav-action"><span class="table-badge">Active Room</span></div>
+        </div>
+        <div class="room-nav-card" style="border-top: 3px solid #EC4899;">
+          <div class="room-nav-header"><span class="room-nav-code">CHRONO-05</span></div>
+          <h3>Historical Heritage Gallery</h3>
+          <p>Classical marble rotunda, medieval swords, Roman armor, T-Rex skull.</p>
+          <div class="room-nav-action"><span class="table-badge">Active Room</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE 5: AUDIT LOGS -->
+    <div id="tab-pane-logs" class="admin-tab-pane hidden">
+      <div style="margin-bottom: 1.5rem;">
+        <h3>System Interaction & Exploration Audit Chronicle</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Real-time interaction telemetry recorded during museum exploration sessions.</p>
+      </div>
+
+      <div class="table-responsive-wrapper">
+        <table class="cyber-table">
+          <thead>
+            <tr>
+              <th>Event Type</th>
+              <th>Target Identifier / Score</th>
+              <th>Timestamp</th>
+              <th>Integrity Status</th>
+            </tr>
+          </thead>
+          <tbody id="admin-logs-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- ARTIFACT FORM MODAL (ADD / EDIT) -->
+  <div id="artifact-form-modal" class="crud-modal-overlay">
+    <div class="crud-modal-card">
+      <button id="artifact-modal-close" class="modal-close-x">&times;</button>
+      <div class="modal-header">
+        <i class="fa-solid fa-cube modal-icon"></i>
+        <h3 id="artifact-modal-title">Add New Cosmic Relic</h3>
+      </div>
+
+      <form id="artifact-crud-form">
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="art-form-id">Artifact ID</label>
+            <input type="text" id="art-form-id" class="cyber-input" required>
+          </div>
+          <div class="form-group">
+            <label for="art-form-name">Relic Name</label>
+            <input type="text" id="art-form-name" class="cyber-input" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="art-form-category">Category</label>
+            <select id="art-form-category" class="cyber-select" required>
+              <option value="Ancient Civilizations">Ancient Civilizations</option>
+              <option value="Historical Artifacts">Historical Artifacts</option>
+              <option value="Space and Astronomy">Space and Astronomy</option>
+              <option value="Science and Technology">Science and Technology</option>
+              <option value="Digital Art Gallery">Digital Art Gallery</option>
+              <option value="World Heritage">World Heritage</option>
+              <option value="Ancient Architecture">Ancient Architecture</option>
+              <option value="Mythology and Culture">Mythology and Culture</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="art-form-collection">Collection</label>
+            <select id="art-form-collection" class="cyber-select" required></select>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="art-form-period">Historical Period</label>
+            <input type="text" id="art-form-period" class="cyber-input" required placeholder="e.g. c. 1323 BCE">
+          </div>
+          <div class="form-group">
+            <label for="art-form-origin">Geographic Origin</label>
+            <input type="text" id="art-form-origin" class="cyber-input" required placeholder="e.g. Thebes, Egypt">
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="art-form-material">Material</label>
+            <input type="text" id="art-form-material" class="cyber-input" required placeholder="e.g. Gold, Lapis Lazuli">
+          </div>
+          <div class="form-group">
+            <label for="art-form-dimensions">Dimensions</label>
+            <input type="text" id="art-form-dimensions" class="cyber-input" placeholder="e.g. 54 cm height">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="art-form-model">3D Procedural Model Type</label>
+          <select id="art-form-model" class="cyber-select">
+            <option value="tutankhamun_mask">Tutankhamun Royal Mask</option>
+            <option value="rosetta_stone">The Rosetta Stone</option>
+            <option value="saturn_planet">Saturn & Rings</option>
+            <option value="jwst">James Webb Space Telescope</option>
+            <option value="dna_helix">DNA Double Helix</option>
+            <option value="tesseract_cube">4D Tesseract Hypercube</option>
+            <option value="medieval_sword">Excalibur Sovereign Longsword</option>
+            <option value="roman_helmet">Roman Centurion Helmet</option>
+            <option value="dino_skull">T-Rex Fossil Skull</option>
+            <option value="galileo_telescope">Galileo's Telescope</option>
+            <option value="quantum_core">Quantum Superconducting Qubit</option>
+            <option value="tesla_coil">Nikola Tesla Magnifying Coil</option>
+            <option value="golden_record">Voyager Golden Record</option>
+            <option value="giza_pyramid">Pyramidion Capstone</option>
+            <option value="greek_amphora">Greek Terracotta Amphora</option>
+            <option value="aztec_sunstone">Aztec Sunstone</option>
+            <option value="viking_runestone">Viking Oseberg Runestone</option>
+            <option value="terracotta_warrior">Terracotta Warrior</option>
+            <option value="astrolabe">Islamic Celestial Astrolabe</option>
+            <option value="enigma_machine">Enigma Cipher Machine</option>
+            <option value="sputnik_satellite">Sputnik 1 Satellite</option>
+            <option value="venus_figurine">Venus of Willendorf</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="art-form-significance">Cultural / Scientific Significance</label>
+          <textarea id="art-form-significance" class="cyber-textarea" rows="2" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="art-form-desc">Detailed Historical Description</label>
+          <textarea id="art-form-desc" class="cyber-textarea" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="art-form-discovery">Discovery Information</label>
+          <input type="text" id="art-form-discovery" class="cyber-input" required>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
+          <button type="button" class="cyber-btn btn-ghost modal-cancel-btn" onclick="document.getElementById('artifact-form-modal').classList.remove('active')">Cancel</button>
+          <button type="submit" class="cyber-btn btn-primary">Commit to Archive</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- COLLECTION FORM MODAL -->
+  <div id="collection-form-modal" class="crud-modal-overlay">
+    <div class="crud-modal-card">
+      <button id="col-modal-close" class="modal-close-x">&times;</button>
+      <div class="modal-header">
+        <i class="fa-solid fa-boxes-stacked modal-icon"></i>
+        <h3>Exhibition Collection Dossier</h3>
+      </div>
+      <form id="collection-crud-form">
+        <div class="form-group">
+          <label for="col-form-id">Collection ID</label>
+          <input type="text" id="col-form-id" class="cyber-input" required>
+        </div>
+        <div class="form-group">
+          <label for="col-form-name">Collection Title</label>
+          <input type="text" id="col-form-name" class="cyber-input" required>
+        </div>
+        <div class="form-group">
+          <label for="col-form-subtitle">Subtitle</label>
+          <input type="text" id="col-form-subtitle" class="cyber-input" required>
+        </div>
+        <div class="form-group">
+          <label for="col-form-desc">Description</label>
+          <textarea id="col-form-desc" class="cyber-textarea" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="col-form-room">Assigned Sector</label>
+          <select id="col-form-room" class="cyber-select">
+            <option value="room-ancient">Ancient Civilization Hall</option>
+            <option value="room-space">Space Exploration Chamber</option>
+            <option value="room-digital">Digital Art Dimension</option>
+            <option value="room-science">Science & Innovation Lab</option>
+            <option value="room-heritage">Historical Heritage Gallery</option>
+          </select>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
+          <button type="button" class="cyber-btn btn-ghost" onclick="document.getElementById('collection-form-modal').classList.remove('active')">Cancel</button>
+          <button type="submit" class="cyber-btn btn-primary">Save Collection</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- QUIZ QUESTION FORM MODAL -->
+  <div id="quiz-form-modal" class="crud-modal-overlay">
+    <div class="crud-modal-card">
+      <button id="quiz-modal-close" class="modal-close-x">&times;</button>
+      <div class="modal-header">
+        <i class="fa-solid fa-graduation-cap modal-icon"></i>
+        <h3>Quiz Question Editor</h3>
+      </div>
+      <form id="quiz-crud-form">
+        <div class="form-group">
+          <label for="q-form-id">Question ID</label>
+          <input type="text" id="q-form-id" class="cyber-input" required>
+        </div>
+        <div class="form-group">
+          <label for="q-form-cat">Category</label>
+          <select id="q-form-cat" class="cyber-select" required>
+            <option value="Ancient Civilizations">Ancient Civilizations</option>
+            <option value="Historical Artifacts">Historical Artifacts</option>
+            <option value="Space and Astronomy">Space and Astronomy</option>
+            <option value="Science and Technology">Science and Technology</option>
+            <option value="Digital Art Gallery">Digital Art Gallery</option>
+            <option value="World Heritage">World Heritage</option>
+            <option value="Mythology and Culture">Mythology and Culture</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="q-form-text">Question Prompt</label>
+          <textarea id="q-form-text" class="cyber-textarea" rows="2" required></textarea>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="q-form-opt0">Option A</label>
+            <input type="text" id="q-form-opt0" class="cyber-input" required>
+          </div>
+          <div class="form-group">
+            <label for="q-form-opt1">Option B</label>
+            <input type="text" id="q-form-opt1" class="cyber-input" required>
+          </div>
+          <div class="form-group">
+            <label for="q-form-opt2">Option C</label>
+            <input type="text" id="q-form-opt2" class="cyber-input" required>
+          </div>
+          <div class="form-group">
+            <label for="q-form-opt3">Option D</label>
+            <input type="text" id="q-form-opt3" class="cyber-input" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="q-form-ans">Correct Choice</label>
+          <select id="q-form-ans" class="cyber-select" required>
+            <option value="0">Option A</option>
+            <option value="1">Option B</option>
+            <option value="2">Option C</option>
+            <option value="3">Option D</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="q-form-explanation">Educational Explanation</label>
+          <textarea id="q-form-explanation" class="cyber-textarea" rows="2" required></textarea>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
+          <button type="button" class="cyber-btn btn-ghost" onclick="document.getElementById('quiz-form-modal').classList.remove('active')">Cancel</button>
+          <button type="submit" class="cyber-btn btn-primary">Save Question</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Universal Footer -->
+  <footer class="cosmic-footer">
+    <div class="footer-bottom">
+      <div>&copy; 2026 VirtualVerse. Chief Curator Console. Master of Computer Applications.</div>
+      <div>LocalStorage Administrative Management</div>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript Modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

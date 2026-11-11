@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorer Dossier & Achievements – VirtualVerse Cosmic Archive</title>
+  <meta name="description" content="View your personal exploration metrics, unlocked achievements, academic level rank, and activity logs across the VirtualVerse museum.">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Universal Cosmic Navbar -->
+  <header class="cosmic-navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-brand-logo"><i class="fa-solid fa-cube"></i></div>
+      <span>Virtual<span class="brand-accent">Verse</span></span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="museum.html" class="nav-link">3D Museum</a></li>
+        <li><a href="collections.html" class="nav-link">Collections</a></li>
+        <li><a href="guided-tour.html" class="nav-link">Guided Tour</a></li>
+        <li><a href="quiz.html" class="nav-link">Quiz Arena</a></li>
+        <li><a href="favorites.html" class="nav-link">Favorites</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="nav-search-btn" title="Search Archive">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="nav-icon-btn" id="nav-audio-toggle" title="Toggle Sound">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+      <div id="nav-user-slot"></div>
+    </div>
+  </header>
+
+  <main class="dashboard-container">
+    <!-- USER PROFILE BANNER -->
+    <div class="profile-banner-card">
+      <div class="profile-avatar-block">
+        <div class="profile-avatar-circle">
+          <i class="fa-solid fa-user-astronaut"></i>
+        </div>
+        <div class="profile-user-info">
+          <h2 id="profile-name">Alex Mercer</h2>
+          <p id="profile-title">Cosmic Research Fellow</p>
+          <div style="display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap;">
+            <span id="profile-role-pill" class="role-pill role-user">USER</span>
+            <span id="profile-level-badge" class="table-badge status-ok">Rank Level 1 (0 XP)</span>
+            <span id="profile-email" style="font-size: 0.82rem; color: var(--text-subtle);">student@mca.edu</span>
+            <span id="profile-joined" style="font-size: 0.82rem; color: var(--text-subtle);"></span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+        <button id="profile-export-btn" class="cyber-btn btn-primary btn-sm">
+          <i class="fa-solid fa-file-export"></i> Export Personal Dossier
+        </button>
+        <button id="profile-reset-btn" class="cyber-btn btn-danger btn-sm">
+          <i class="fa-solid fa-trash-arrow-up"></i> Reset Records
+        </button>
+      </div>
+    </div>
+
+    <!-- KPI STATS SUMMARY -->
+    <div class="kpi-stats-grid" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="kpi-card">
+        <div class="kpi-icon-wrap"><i class="fa-solid fa-cube"></i></div>
+        <div class="kpi-card-data">
+          <span id="kpi-viewed-count" class="kpi-number">0</span>
+          <span class="kpi-label">Relics Explored</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon-wrap"><i class="fa-solid fa-door-open"></i></div>
+        <div class="kpi-card-data">
+          <span id="kpi-rooms-count" class="kpi-number">0 / 5</span>
+          <span class="kpi-label">Sectors Traversed</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon-wrap"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="kpi-card-data">
+          <span id="kpi-quiz-count" class="kpi-number">0</span>
+          <span class="kpi-label">Quizzes Completed</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon-wrap"><i class="fa-solid fa-bookmark"></i></div>
+        <div class="kpi-card-data">
+          <span id="kpi-fav-count" class="kpi-number">0</span>
+          <span class="kpi-label">Bookmarked Relics</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACHIEVEMENTS BADGES GRID -->
+    <div style="margin-bottom: 3.5rem;">
+      <div class="dashboard-header" style="margin-bottom: 1.5rem;">
+        <div class="dashboard-title-group">
+          <h2><i class="fa-solid fa-trophy" style="color: var(--accent-gold);"></i> Cosmic Achievements & Badges</h2>
+          <p>Earn scholarly recognitions by investigating chambers, inspecting relics in 360°, and mastering quizzes.</p>
+        </div>
+      </div>
+
+      <div id="profile-achievements-grid" class="achievements-grid"></div>
+    </div>
+
+    <!-- ACTIVITY TIMELINE -->
+    <div>
+      <div class="dashboard-header" style="margin-bottom: 1.5rem;">
+        <div class="dashboard-title-group">
+          <h2><i class="fa-solid fa-clock-rotate-left" style="color: var(--accent-secondary);"></i> Exploration History Timeline</h2>
+          <p>Verified chronicle of your interactions throughout the VirtualVerse chambers.</p>
+        </div>
+      </div>
+
+      <div id="profile-timeline" class="timeline-stream"></div>
+    </div>
+  </main>
+
+  <!-- Universal Footer -->
+  <footer class="cosmic-footer">
+    <div class="footer-bottom">
+      <div>&copy; 2026 VirtualVerse. Master of Computer Applications Final Year Project.</div>
+      <div>Profile System &bull; LocalStorage Verified Records</div>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript Modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

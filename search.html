@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search & Discovery – VirtualVerse Cosmic Archive</title>
+  <meta name="description" content="Explore and discover 32+ museum relics, filter by historical epoch, category, materials, and origins with real-time suggestions and 3D preview links.">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .search-page-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 6rem;
+    }
+    .search-hero-box {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+    .search-hero-box h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.8rem;
+    }
+    .search-hero-box p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .search-controls-bar {
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-cyan);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem 2rem;
+      margin-bottom: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), var(--glow-cyan);
+    }
+    .search-primary-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(23, 28, 53, 0.8);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-full);
+      padding: 0.8rem 1.6rem;
+    }
+    .search-primary-input-wrap input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-size: 1.1rem;
+    }
+
+    .search-filters-row-bar {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .filters-left {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Results Grid */
+    .search-results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+
+    .search-artifact-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: all var(--transition-smooth);
+    }
+    .search-artifact-card:hover {
+      border-color: var(--accent-secondary);
+      transform: translateY(-6px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), var(--glow-cyan);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+    .card-cat-badge {
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      color: var(--accent-secondary);
+      background: rgba(0, 229, 255, 0.1);
+      border: 1px solid var(--border-cyan);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+    }
+    .card-fav-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    .card-fav-btn.active {
+      color: var(--accent-secondary);
+    }
+
+    .card-3d-visual {
+      height: 140px;
+      background: radial-gradient(circle at center, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .visual-icon {
+      font-size: 3rem;
+      color: var(--accent-secondary);
+      filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.5));
+    }
+
+    .card-content h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+    }
+    .card-meta {
+      display: flex;
+      gap: 0.8rem;
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      margin-bottom: 0.8rem;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.4rem;
+    }
+
+    .card-bottom-actions {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .search-empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+    .search-empty-state i {
+      font-size: 3rem;
+      color: var(--accent-primary);
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Cosmic Navbar -->
+  <header class="cosmic-navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-brand-logo"><i class="fa-solid fa-cube"></i></div>
+      <span>Virtual<span class="brand-accent">Verse</span></span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="museum.html" class="nav-link">3D Museum</a></li>
+        <li><a href="collections.html" class="nav-link">Collections</a></li>
+        <li><a href="guided-tour.html" class="nav-link">Guided Tour</a></li>
+        <li><a href="quiz.html" class="nav-link">Quiz Arena</a></li>
+        <li><a href="favorites.html" class="nav-link">Favorites</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="nav-search-btn" title="Search Archive">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="nav-icon-btn" id="nav-audio-toggle" title="Toggle Sound">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+      <div id="nav-user-slot"></div>
+    </div>
+  </header>
+
+  <main class="search-page-container">
+    <div class="search-hero-box">
+      <span class="section-tag">Universal Retrieval</span>
+      <h1>Search & Discovery</h1>
+      <p>Search across 32+ museum relics by name, historical period, material, or origin with instantaneous multi-dimensional filtering.</p>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="search-controls-bar">
+      <div class="search-primary-input-wrap">
+        <i class="fa-solid fa-magnifying-glass" style="color: var(--accent-secondary); font-size: 1.2rem;"></i>
+        <input type="text" id="page-search-input" placeholder="Search by name, origin, material, period (e.g. Tutankhamun, Saturn, Gold, BCE)..." autocomplete="off">
+      </div>
+
+      <div class="search-filters-row-bar">
+        <div class="filters-left">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <label style="font-family: var(--font-heading); font-size: 0.75rem; color: var(--text-muted);">CATEGORY:</label>
+            <select id="search-category-select" class="cyber-select" style="padding: 0.4rem 0.8rem; font-size: 0.82rem;">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <label style="font-family: var(--font-heading); font-size: 0.75rem; color: var(--text-muted);">PERIOD:</label>
+            <select id="search-period-select" class="cyber-select" style="padding: 0.4rem 0.8rem; font-size: 0.82rem;">
+              <option value="all">All Epochs</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span id="search-results-count" class="table-badge status-ok">32 Relics Found</span>
+          <button id="search-clear-btn" class="cyber-btn btn-ghost btn-sm">Clear Filters</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Results Grid -->
+    <div id="search-results-grid" class="search-results-grid"></div>
+  </main>
+
+  <!-- Universal Footer -->
+  <footer class="cosmic-footer">
+    <div class="footer-bottom">
+      <div>&copy; 2026 VirtualVerse. Master of Computer Applications Final Year Project.</div>
+      <div>Multi-Dimensional Discovery Engine</div>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript Modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>

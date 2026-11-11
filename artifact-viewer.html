@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Artifact Studio – VirtualVerse Cosmic Archive</title>
+  <meta name="description" content="Inspect historical and scientific artifacts in 360° 3D with wireframe shaders, dynamic lighting controls, audio guide narrations, and complete scholarly dossiers.">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/artifact.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Universal Cosmic Navbar -->
+  <header class="cosmic-navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-brand-logo"><i class="fa-solid fa-cube"></i></div>
+      <span>Virtual<span class="brand-accent">Verse</span></span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="museum.html" class="nav-link">3D Museum</a></li>
+        <li><a href="collections.html" class="nav-link">Collections</a></li>
+        <li><a href="guided-tour.html" class="nav-link">Guided Tour</a></li>
+        <li><a href="quiz.html" class="nav-link">Quiz Arena</a></li>
+        <li><a href="favorites.html" class="nav-link">Favorites</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="nav-search-btn" title="Search Archive">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="nav-icon-btn" id="nav-audio-toggle" title="Toggle Sound">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+      <div id="nav-user-slot"></div>
+    </div>
+  </header>
+
+  <main class="artifact-studio-layout">
+    <!-- LEFT 3D STUDIO CANVAS & TOOLBAR -->
+    <section class="studio-canvas-panel">
+      <div id="viewer-3d-canvas-container"></div>
+
+      <!-- Floating Inspection Toolbar -->
+      <div class="studio-toolbar">
+        <button id="btn-toggle-rotate" class="studio-tool-btn active" title="Toggle 360° Auto-Rotation">
+          <i class="fa-solid fa-rotate"></i> Auto-Rotate
+        </button>
+        <button id="btn-toggle-wireframe" class="studio-tool-btn" title="Toggle Holographic Wireframe Shader">
+          <i class="fa-solid fa-network-wired"></i> Wireframe
+        </button>
+        <button id="btn-reset-cam" class="studio-tool-btn" title="Reset Camera View">
+          <i class="fa-solid fa-crosshairs"></i> Reset
+        </button>
+        <button id="btn-viewer-fullscreen" class="studio-tool-btn" title="Toggle Fullscreen">
+          <i class="fa-solid fa-expand"></i> Fullscreen
+        </button>
+
+        <div class="studio-lighting-group">
+          <button class="light-preset-btn active" data-preset="studio" title="Studio Light Spectrum">
+            <i class="fa-solid fa-sun"></i>
+          </button>
+          <button class="light-preset-btn" data-preset="neon" title="Cyber Neon Spectrum">
+            <i class="fa-solid fa-bolt"></i>
+          </button>
+          <button class="light-preset-btn" data-preset="amber" title="Amber Torchlight Spectrum">
+            <i class="fa-solid fa-fire"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT DOSSIER SPECIFICATIONS & AUDIO GUIDE -->
+    <section class="studio-dossier-panel">
+      <div class="dossier-header-block">
+        <div class="dossier-badge-row">
+          <span id="viewer-category-badge" class="category-tag">Historical Relic</span>
+          <button id="viewer-favorite-btn" class="cyber-btn btn-ghost btn-sm">
+            <i class="fa-regular fa-bookmark"></i> Add to Favorites
+          </button>
+        </div>
+
+        <h1 id="viewer-artifact-title" class="dossier-title">Mask of Tutankhamun</h1>
+
+        <div class="dossier-quick-meta">
+          <span><i class="fa-solid fa-clock"></i> <span id="viewer-period">c. 1323 BCE</span></span>
+          <span><i class="fa-solid fa-location-dot"></i> <span id="viewer-origin">Thebes, Egypt</span></span>
+        </div>
+      </div>
+
+      <!-- Audio Narration Box -->
+      <div class="audio-narration-card">
+        <div class="audio-card-text">
+          <strong>Synthesized Audio Guide</strong>
+          <small>AI-Narrated historical and scientific dossier</small>
+        </div>
+        <button id="btn-audio-narrate" class="cyber-btn btn-cyan btn-sm">
+          <i class="fa-solid fa-headphones"></i> Listen to Audio Guide
+        </button>
+      </div>
+
+      <!-- Historical Narrative Description -->
+      <div>
+        <h3 style="font-size: 1.15rem; margin-bottom: 0.6rem;">Historical Narrative</h3>
+        <p id="viewer-description" style="color: var(--text-main); font-size: 0.95rem; line-height: 1.7;"></p>
+      </div>
+
+      <!-- Technical Specifications Table -->
+      <div>
+        <h3 style="font-size: 1.15rem; margin-bottom: 0.8rem;">Archival Dossier</h3>
+        <table class="specs-table">
+          <tbody>
+            <tr>
+              <th>Material</th>
+              <td id="viewer-material">Gold, Lapis Lazuli, Turquoise</td>
+            </tr>
+            <tr>
+              <th>Dimensions</th>
+              <td id="viewer-dimensions">54 cm × 39.3 cm × 49 cm</td>
+            </tr>
+            <tr>
+              <th>Significance</th>
+              <td id="viewer-significance">Apex of ancient Egyptian goldsmithing</td>
+            </tr>
+            <tr>
+              <th>Discovery</th>
+              <td id="viewer-discovery">November 1922 by Howard Carter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Did You Know? Facts List -->
+      <div class="facts-block">
+        <h3><i class="fa-solid fa-lightbulb"></i> Did You Know?</h3>
+        <ul id="viewer-facts-list" class="facts-list"></ul>
+      </div>
+
+      <!-- Related Exhibits Recommendation Reel -->
+      <div class="related-exhibits-block">
+        <h3>Related Cosmic Relics</h3>
+        <div id="related-exhibits-row" class="related-cards-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Three.js Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <!-- Core JavaScript Modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/procedural-models.js"></script>
+  <script src="js/artifact-viewer.js"></script>
+</body>
+</html>

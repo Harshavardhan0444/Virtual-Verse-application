@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Guided Tour – VirtualVerse Cosmic Archive</title>
+  <meta name="description" content="Embark on an automated cinematic 3D guided tour gliding between flagship exhibits of human civilization, space exploration, and quantum science.">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .tour-viewport-layout {
+      position: relative;
+      height: calc(100vh - 72px);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #tour-canvas-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* Top Tour HUD Overlay */
+    .tour-top-hud {
+      position: absolute;
+      top: 1.5rem;
+      left: 2rem;
+      right: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+      pointer-events: none;
+    }
+    .tour-top-hud > * {
+      pointer-events: auto;
+    }
+
+    .tour-badge-pill {
+      background: rgba(16, 20, 38, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--accent-secondary);
+      border-radius: var(--radius-full);
+      padding: 0.5rem 1.2rem;
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      color: var(--accent-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: var(--glow-cyan);
+    }
+
+    /* Bottom Cinematic Narration HUD Box */
+    .tour-bottom-hud {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 860px;
+      z-index: 50;
+    }
+
+    .tour-narration-card {
+      background: rgba(16, 20, 38, 0.92);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--border-cyan);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.4rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), var(--glow-cyan);
+    }
+
+    .tour-progress-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      margin-bottom: 1.2rem;
+      overflow: hidden;
+    }
+    .tour-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      width: 16%;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 10px var(--accent-secondary);
+    }
+
+    .tour-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+    }
+    .tour-stop-label {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .tour-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.4rem;
+    }
+    .tour-meta-row {
+      font-size: 0.82rem;
+      color: var(--accent-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .tour-body-text {
+      color: var(--text-main);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      min-height: 60px;
+      margin-bottom: 1.8rem;
+    }
+
+    .tour-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-glass);
+      padding-top: 1.2rem;
+    }
+    .tour-nav-btns {
+      display: flex;
+      gap: 0.6rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Cosmic Navbar -->
+  <header class="cosmic-navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-brand-logo"><i class="fa-solid fa-cube"></i></div>
+      <span>Virtual<span class="brand-accent">Verse</span></span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="museum.html" class="nav-link">3D Museum</a></li>
+        <li><a href="collections.html" class="nav-link">Collections</a></li>
+        <li><a href="guided-tour.html" class="nav-link active">Guided Tour</a></li>
+        <li><a href="quiz.html" class="nav-link">Quiz Arena</a></li>
+        <li><a href="favorites.html" class="nav-link">Favorites</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="nav-search-btn" title="Search Archive">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="nav-icon-btn" id="nav-audio-toggle" title="Toggle Sound">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+      <div id="nav-user-slot"></div>
+    </div>
+  </header>
+
+  <main class="tour-viewport-layout">
+    <div id="tour-canvas-container"></div>
+
+    <!-- TOP TOUR HUD OVERLAY -->
+    <div class="tour-top-hud">
+      <div class="tour-badge-pill">
+        <i class="fa-solid fa-route"></i>
+        <span>Automated Cinematic Museum Tour</span>
+      </div>
+
+      <div style="display: flex; gap: 0.6rem;">
+        <button id="tour-voice-toggle-btn" class="cyber-btn btn-ghost btn-sm">
+          <i class="fa-solid fa-volume-high"></i> Voice On
+        </button>
+        <a href="museum.html" class="cyber-btn btn-primary btn-sm">
+          <i class="fa-solid fa-person-walking"></i> Free Roam Museum
+        </a>
+      </div>
+    </div>
+
+    <!-- BOTTOM CINEMATIC NARRATION CARD -->
+    <div class="tour-bottom-hud">
+      <div class="tour-narration-card">
+        <div class="tour-progress-track">
+          <div id="tour-progress-bar-fill" class="tour-progress-fill"></div>
+        </div>
+
+        <div class="tour-card-header">
+          <span id="tour-step-badge" class="tour-stop-label">Exhibit 1 of 6</span>
+          <span id="tour-category-badge" class="table-badge">Ancient Civilizations</span>
+        </div>
+
+        <h2 id="tour-exhibit-title" class="tour-title">Mask of Tutankhamun</h2>
+        <div id="tour-period-text" class="tour-meta-row">
+          <i class="fa-solid fa-clock"></i> c. 1323 BCE &bull; <i class="fa-solid fa-location-dot"></i> Thebes, Egypt
+        </div>
+
+        <p id="tour-narration-body" class="tour-body-text"></p>
+
+        <div class="tour-controls-row">
+          <div style="display: flex; gap: 0.8rem;">
+            <button id="tour-play-pause-btn" class="cyber-btn btn-primary btn-sm">
+              <i class="fa-solid fa-play"></i> Start Auto Tour
+            </button>
+            <button id="tour-inspect-studio-btn" class="cyber-btn btn-ghost btn-sm">
+              <i class="fa-solid fa-cube"></i> Open 360° Studio
+            </button>
+          </div>
+
+          <div class="tour-nav-btns">
+            <button id="tour-prev-btn" class="cyber-btn btn-ghost btn-sm">
+              &larr; Previous
+            </button>
+            <button id="tour-next-btn" class="cyber-btn btn-ghost btn-sm">
+              Next Exhibit &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Three.js Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Core JavaScript Modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/procedural-models.js"></script>
+  <script src="js/guided-tour.js"></script>
+</body>
+</html>

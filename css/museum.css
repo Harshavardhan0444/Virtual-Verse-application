@@ -1,0 +1,467 @@
+/**
+ * VirtualVerse – Cosmic Archive
+ * css/museum.css
+ * 3D Virtual Museum Exploration Interface, HUD Overlays, Minimap, Holographic Panels
+ */
+
+.museum-viewport {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #070914;
+}
+
+#museum-canvas-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Teleport flash screen overlay */
+.teleport-flash-overlay {
+  position: absolute;
+  inset: 0;
+  background: #00E5FF;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+  transition: opacity 0.4s ease-out;
+}
+.teleport-flash-overlay.flash-active {
+  opacity: 0.85;
+  transition: none;
+}
+
+/* ---------------- HUD TOP BAR ---------------- */
+.museum-hud-top {
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.hud-left-group, .hud-right-group, .hud-center-group {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.hud-sector-badge {
+  background: rgba(16, 20, 38, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-cyan);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), var(--glow-cyan);
+}
+.hud-sector-code {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  color: var(--accent-secondary);
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  background: rgba(0, 229, 255, 0.15);
+  border-radius: var(--radius-sm);
+}
+.hud-sector-name {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+/* Mode Switcher Group */
+.hud-mode-switcher {
+  background: rgba(16, 20, 38, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-full);
+  padding: 0.35rem;
+  display: flex;
+  gap: 0.3rem;
+}
+.mode-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.mode-btn:hover {
+  color: var(--text-main);
+}
+.mode-btn.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
+}
+
+/* ---------------- CENTER CROSSHAIR ---------------- */
+.museum-crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.crosshair-dot {
+  width: 6px;
+  height: 6px;
+  background: rgba(0, 229, 255, 0.85);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-secondary);
+}
+.crosshair-reticle {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 1px dashed rgba(0, 229, 255, 0.3);
+  border-radius: 50%;
+  top: -11px;
+  left: -11px;
+}
+
+#hud-crosshair-prompt {
+  display: none;
+  margin-top: 2rem;
+  background: rgba(16, 20, 38, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-cyan);
+  padding: 0.4rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--accent-secondary);
+  box-shadow: var(--glow-cyan);
+  white-space: nowrap;
+}
+
+/* ---------------- HUD BOTTOM OVERLAYS ---------------- */
+.museum-hud-bottom {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  z-index: 50;
+  pointer-events: none;
+}
+
+/* Mini-Map HUD Box */
+.hud-minimap-card {
+  pointer-events: auto;
+  background: rgba(16, 20, 38, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-cyan);
+  border-radius: var(--radius-md);
+  padding: 0.8rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.minimap-title {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  color: var(--accent-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  justify-content: space-between;
+}
+#hud-minimap-canvas {
+  width: 140px;
+  height: 140px;
+  border-radius: var(--radius-sm);
+  background: #070914;
+}
+
+/* Controls Guide Legend */
+.hud-controls-card {
+  pointer-events: auto;
+  background: rgba(16, 20, 38, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 0.8rem 1.4rem;
+  display: flex;
+  gap: 1.8rem;
+}
+.control-key-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.kbd-badge {
+  background: #1f2746;
+  border: 1px solid var(--border-glass);
+  border-radius: 4px;
+  padding: 0.15rem 0.45rem;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  color: var(--accent-secondary);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------------- HOLOGRAPHIC INFORMATION PANEL DRAWER ---------------- */
+.holographic-drawer {
+  position: absolute;
+  top: 0;
+  right: -520px;
+  width: 480px;
+  height: 100%;
+  background: rgba(16, 20, 38, 0.92);
+  backdrop-filter: blur(24px);
+  border-left: 1px solid var(--border-cyan);
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.8), var(--glow-cyan);
+  z-index: 200;
+  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  padding: 2.5rem 2rem;
+}
+.holographic-drawer.panel-active {
+  right: 0;
+}
+
+.holo-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.holo-badge {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid var(--accent-primary);
+  color: #c4b5fd;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full);
+}
+.holo-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.holo-close-btn:hover {
+  color: #ffffff;
+}
+
+.holo-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+.holo-meta-row {
+  display: flex;
+  gap: 1.2rem;
+  font-size: 0.85rem;
+  color: var(--accent-secondary);
+  margin-bottom: 1.4rem;
+}
+
+.holo-desc {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+}
+
+.holo-spec-box {
+  background: rgba(23, 28, 53, 0.6);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  margin-bottom: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+}
+.holo-spec-box strong {
+  color: var(--accent-secondary);
+}
+
+.holo-facts {
+  margin-bottom: 2rem;
+}
+.holo-facts h4 {
+  font-size: 0.95rem;
+  color: var(--accent-gold);
+  margin-bottom: 0.8rem;
+}
+.holo-facts ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.holo-facts li {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent-primary);
+}
+
+.holo-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+/* ---------------- HUD GUIDED TOUR BOX ---------------- */
+#hud-tour-narration {
+  display: none;
+  position: absolute;
+  bottom: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 150;
+  width: 90%;
+  max-width: 650px;
+}
+.tour-hud-box {
+  background: rgba(16, 20, 38, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--accent-secondary);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8), var(--glow-cyan);
+}
+.tour-step {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  color: var(--accent-secondary);
+  text-transform: uppercase;
+}
+.tour-hud-box h3 {
+  font-size: 1.4rem;
+  margin: 0.4rem 0 0.8rem;
+}
+.tour-hud-box p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+}
+.tour-btn-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+}
+
+/* ---------------- ROOM SELECTOR MODAL ---------------- */
+.room-selector-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 6, 14, 0.85);
+  backdrop-filter: blur(16px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 2rem;
+}
+.room-selector-modal.active {
+  display: flex;
+}
+
+.room-modal-container {
+  background: rgba(16, 20, 38, 0.95);
+  border: 1px solid var(--border-cyan);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 900px;
+  padding: 2.2rem;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), var(--glow-cyan);
+}
+
+.rooms-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-top: 1.8rem;
+}
+
+.room-nav-card {
+  background: rgba(23, 28, 53, 0.6);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.room-nav-card:hover {
+  border-color: var(--accent-secondary);
+  transform: translateY(-4px);
+  box-shadow: var(--glow-cyan);
+}
+.room-nav-card.current-room {
+  border-color: var(--accent-primary);
+  background: rgba(139, 92, 246, 0.15);
+}
+
+.room-nav-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+.room-nav-code {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  color: var(--accent-secondary);
+  font-weight: 700;
+}
+.room-nav-badge {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.room-nav-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+}
+.room-nav-card p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+.status-current {
+  font-size: 0.75rem;
+  color: var(--accent-primary);
+  font-weight: 600;
+}

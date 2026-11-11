@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Explorer – VirtualVerse Cosmic Archive</title>
+  <meta name="description" content="Register an explorer account in VirtualVerse to curate collections, record museum scores, and earn cosmic achievements.">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .auth-page-wrapper {
+      min-height: calc(100vh - 72px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+    .auth-glass-card {
+      background: rgba(16, 20, 38, 0.9);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--border-cyan);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 520px;
+      padding: 2.8rem 2.2rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), var(--glow-cyan);
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .auth-header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.4rem;
+    }
+    .auth-header p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .password-wrap {
+      position: relative;
+    }
+    .password-toggle-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .password-toggle-btn:hover {
+      color: var(--accent-secondary);
+    }
+    .strength-wrapper {
+      margin-top: 0.4rem;
+    }
+    .strength-bar {
+      height: 4px;
+      width: 0%;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      background: #374151;
+    }
+    .strength-bar.weak { width: 30%; background: #ef4444; }
+    .strength-bar.medium { width: 65%; background: #f59e0b; }
+    .strength-bar.strong { width: 100%; background: #10b981; }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Cosmic Navbar -->
+  <header class="cosmic-navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-brand-logo"><i class="fa-solid fa-cube"></i></div>
+      <span>Virtual<span class="brand-accent">Verse</span></span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="museum.html" class="nav-link">3D Museum</a></li>
+        <li><a href="collections.html" class="nav-link">Collections</a></li>
+        <li><a href="guided-tour.html" class="nav-link">Guided Tour</a></li>
+        <li><a href="quiz.html" class="nav-link">Quiz Arena</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="nav-search-btn" title="Search Archive">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="nav-icon-btn" id="nav-audio-toggle" title="Toggle Sound">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+      <div id="nav-user-slot"></div>
+    </div>
+  </header>
+
+  <main class="auth-page-wrapper">
+    <div class="auth-glass-card">
+      <div class="security-disclaimer-banner">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <div>
+          <strong>MCA Project Note:</strong> Demonstrates client-side account registration with localStorage persistence.
+        </div>
+      </div>
+
+      <div class="auth-header">
+        <h1>Explorer Registry</h1>
+        <p>Enroll as an authorized researcher in the Cosmic Archive</p>
+      </div>
+
+      <form id="register-form">
+        <div class="form-group">
+          <label for="reg-name"><i class="fa-solid fa-user"></i> Full Name</label>
+          <input type="text" id="reg-name" class="cyber-input" placeholder="e.g. Maya Lin" required>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-email"><i class="fa-solid fa-envelope"></i> Academic or Personal Email</label>
+          <input type="email" id="reg-email" class="cyber-input" placeholder="e.g. explorer@domain.edu" required>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-password"><i class="fa-solid fa-lock"></i> Passcode (Min. 6 Characters)</label>
+          <div class="password-wrap">
+            <input type="password" id="reg-password" class="cyber-input" placeholder="Create strong passcode" required>
+            <button type="button" class="password-toggle-btn" data-target="reg-password">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <div class="strength-wrapper">
+            <div id="password-strength-bar" class="strength-bar"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-confirm-password"><i class="fa-solid fa-shield-check"></i> Re-type Passcode</label>
+          <div class="password-wrap">
+            <input type="password" id="reg-confirm-password" class="cyber-input" placeholder="Confirm passcode" required>
+            <button type="button" class="password-toggle-btn" data-target="reg-confirm-password">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.8rem; font-size: 0.85rem; color: var(--text-muted);">
+          <label style="display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer;">
+            <input type="checkbox" id="reg-terms" required style="margin-top: 3px;">
+            <span>I acknowledge the Cosmic Archive Exploration Protocols and agree to conduct scholarly virtual research.</span>
+          </label>
+        </div>
+
+        <button type="submit" class="cyber-btn btn-primary" style="width: 100%;">
+          <i class="fa-solid fa-user-plus"></i> Initialize Explorer Identity
+        </button>
+      </form>
+
+      <div style="margin-top: 1.4rem; text-align: center; font-size: 0.88rem; color: var(--text-muted);">
+        Already hold a cosmic pass? <a href="login.html">Sign In Here</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Core JavaScript Modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

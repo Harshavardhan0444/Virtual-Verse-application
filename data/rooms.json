@@ -1,0 +1,97 @@
+[
+  {
+    "id": "room-ancient",
+    "name": "Ancient Civilization Hall",
+    "code": "ARCH-01",
+    "theme": "ancient",
+    "description": "Monumental sandstone colonnades, hieroglyphic engravings, and warm amber brazier illumination showcasing relics of Egypt, Mesopotamia, and Classical Antiquity.",
+    "ambientColor": "#F59E0B",
+    "lightIntensity": 1.2,
+    "fogColor": "#140e07",
+    "floorColor": "#1e160e",
+    "wallColor": "#2a1c12",
+    "accentColor": "#FBBF24",
+    "dimensions": { "width": 60, "height": 18, "depth": 60 },
+    "spawnPoint": { "x": 0, "y": 2, "z": 22 },
+    "portals": [
+      { "targetRoom": "room-space", "name": "Space Chamber", "position": { "x": 25, "y": 0, "z": 0 }, "rotation": -1.57 },
+      { "targetRoom": "room-heritage", "name": "Heritage Gallery", "position": { "x": -25, "y": 0, "z": 0 }, "rotation": 1.57 }
+    ]
+  },
+  {
+    "id": "room-space",
+    "name": "Space Exploration Chamber",
+    "code": "COSMO-02",
+    "theme": "space",
+    "description": "An open celestial observatory overlooking an endless cosmic nebula, glittering star clusters, orbiting ringed planets, and human deep-space exploration probes.",
+    "ambientColor": "#00E5FF",
+    "lightIntensity": 0.9,
+    "fogColor": "#050814",
+    "floorColor": "#080c1d",
+    "wallColor": "#0b122b",
+    "accentColor": "#38BDF8",
+    "dimensions": { "width": 70, "height": 22, "depth": 70 },
+    "spawnPoint": { "x": 0, "y": 2, "z": 24 },
+    "portals": [
+      { "targetRoom": "room-ancient", "name": "Ancient Hall", "position": { "x": -28, "y": 0, "z": 0 }, "rotation": 1.57 },
+      { "targetRoom": "room-digital", "name": "Digital Dimension", "position": { "x": 0, "y": 0, "z": -28 }, "rotation": 3.14 }
+    ]
+  },
+  {
+    "id": "room-digital",
+    "name": "Digital Art Dimension",
+    "code": "CYBER-03",
+    "theme": "digital",
+    "description": "A surreal cybernetic void dominated by morphing 4D hypercubes, holographic light grids, reactive sound waves, and pulsing violet neon energy arrays.",
+    "ambientColor": "#8B5CF6",
+    "lightIntensity": 1.1,
+    "fogColor": "#0b0518",
+    "floorColor": "#120a26",
+    "wallColor": "#180c35",
+    "accentColor": "#A855F7",
+    "dimensions": { "width": 64, "height": 20, "depth": 64 },
+    "spawnPoint": { "x": 0, "y": 2, "z": 22 },
+    "portals": [
+      { "targetRoom": "room-space", "name": "Space Chamber", "position": { "x": 0, "y": 0, "z": 26 }, "rotation": 0 },
+      { "targetRoom": "room-science", "name": "Science Lab", "position": { "x": 26, "y": 0, "z": 0 }, "rotation": -1.57 }
+    ]
+  },
+  {
+    "id": "room-science",
+    "name": "Science & Innovation Lab",
+    "code": "NEXUS-04",
+    "theme": "science",
+    "description": "A pristine high-tech quantum laboratory with glowing hexagonal light tiles, magnetic containment fields, rotating DNA macromolecules, and particle colliders.",
+    "ambientColor": "#10B981",
+    "lightIntensity": 1.3,
+    "fogColor": "#04140f",
+    "floorColor": "#082119",
+    "wallColor": "#0d3126",
+    "accentColor": "#34D399",
+    "dimensions": { "width": 62, "height": 18, "depth": 62 },
+    "spawnPoint": { "x": 0, "y": 2, "z": 22 },
+    "portals": [
+      { "targetRoom": "room-digital", "name": "Digital Dimension", "position": { "x": -26, "y": 0, "z": 0 }, "rotation": 1.57 },
+      { "targetRoom": "room-heritage", "name": "Heritage Gallery", "position": { "x": 0, "y": 0, "z": -26 }, "rotation": 3.14 }
+    ]
+  },
+  {
+    "id": "room-heritage",
+    "name": "Historical Heritage Gallery",
+    "code": "CHRONO-05",
+    "theme": "heritage",
+    "description": "A grand neo-classical marble rotunda crowned by vaulted Romanesque arches, golden friezes, and warm gallery downlights preserving priceless treasures of humanity.",
+    "ambientColor": "#EC4899",
+    "lightIntensity": 1.2,
+    "fogColor": "#150610",
+    "floorColor": "#220919",
+    "wallColor": "#320e25",
+    "accentColor": "#F472B6",
+    "dimensions": { "width": 64, "height": 20, "depth": 64 },
+    "spawnPoint": { "x": 0, "y": 2, "z": 22 },
+    "portals": [
+      { "targetRoom": "room-science", "name": "Science Lab", "position": { "x": 0, "y": 0, "z": 26 }, "rotation": 0 },
+      { "targetRoom": "room-ancient", "name": "Ancient Hall", "position": { "x": 26, "y": 0, "z": 0 }, "rotation": -1.57 }
+    ]
+  }
+]

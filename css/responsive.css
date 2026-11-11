@@ -1,0 +1,138 @@
+/**
+ * VirtualVerse – Cosmic Archive
+ * css/responsive.css
+ * Comprehensive Responsive Media Queries for Mobile, Tablet, Laptop & Desktop
+ */
+
+@media (max-width: 1200px) {
+  .artifacts-grid,
+  .favorites-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .rooms-showcase-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .kpi-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-top-grid {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .artifact-studio-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow-y: auto;
+  }
+  .studio-canvas-panel {
+    height: 55vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border-cyan);
+  }
+  .holographic-drawer {
+    width: 100%;
+    right: -100%;
+  }
+  .rooms-modal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cosmic-navbar {
+    padding: 0 1.2rem;
+  }
+  .nav-links {
+    display: none; /* Can be toggled on mobile */
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-cta-group .cyber-btn {
+    width: 100%;
+  }
+
+  .about-features-grid {
+    grid-template-columns: 1fr;
+  }
+  .rooms-showcase-grid {
+    grid-template-columns: 1fr;
+  }
+  .artifacts-grid,
+  .favorites-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .museum-hud-top {
+    left: 1rem;
+    right: 1rem;
+    top: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .hud-right-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .museum-hud-bottom {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  .hud-controls-card {
+    display: none; /* Hide keyboard labels on touch devices */
+  }
+
+  .kpi-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .achievements-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .footer-top-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .kpi-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .hud-sector-badge {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}

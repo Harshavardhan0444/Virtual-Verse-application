@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Relics & Favorites – VirtualVerse Cosmic Archive</title>
+  <meta name="description" content="View and manage your bookmarked museum relics, filter by category, and launch directly into 360° 3D studio inspection.">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .fav-filters-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+    }
+    .fav-cat-pills-row {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+    }
+    .fav-cat-btn {
+      background: rgba(16, 20, 38, 0.7);
+      border: 1px solid var(--border-glass);
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all var(--transition-fast);
+    }
+    .fav-cat-btn:hover {
+      border-color: var(--border-cyan);
+      color: var(--text-main);
+    }
+    .fav-cat-btn.active {
+      background: rgba(0, 229, 255, 0.15);
+      border-color: var(--accent-secondary);
+      color: var(--accent-secondary);
+      box-shadow: var(--glow-cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Cosmic Navbar -->
+  <header class="cosmic-navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-brand-logo"><i class="fa-solid fa-cube"></i></div>
+      <span>Virtual<span class="brand-accent">Verse</span></span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="museum.html" class="nav-link">3D Museum</a></li>
+        <li><a href="collections.html" class="nav-link">Collections</a></li>
+        <li><a href="guided-tour.html" class="nav-link">Guided Tour</a></li>
+        <li><a href="quiz.html" class="nav-link">Quiz Arena</a></li>
+        <li><a href="favorites.html" class="nav-link active">Favorites</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="nav-search-btn" title="Search Archive">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="nav-icon-btn" id="nav-audio-toggle" title="Toggle Sound">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+      <div id="nav-user-slot"></div>
+    </div>
+  </header>
+
+  <main class="dashboard-container">
+    <div class="dashboard-header">
+      <div class="dashboard-title-group">
+        <span class="section-tag">Personal Curation</span>
+        <h1>Bookmarked Museum Relics</h1>
+        <p>Your curated selection of historical artifacts, astronomical instruments, and scientific breakthroughs.</p>
+      </div>
+
+      <div style="display: flex; gap: 0.8rem; align-items: center;">
+        <span id="favorites-count-badge" class="table-badge status-ok">0 Relics Saved</span>
+        <button id="fav-export-btn" class="cyber-btn btn-ghost btn-sm">
+          <i class="fa-solid fa-file-export"></i> Export JSON
+        </button>
+        <a href="museum.html" class="cyber-btn btn-primary btn-sm">
+          <i class="fa-solid fa-compass"></i> Explore Museum
+        </a>
+      </div>
+    </div>
+
+    <!-- Category Filter Bar -->
+    <div class="fav-filters-bar">
+      <div id="fav-category-filters" class="fav-cat-pills-row"></div>
+    </div>
+
+    <!-- Favorites Grid -->
+    <div id="favorites-grid" class="favorites-cards-grid"></div>
+  </main>
+
+  <!-- Universal Footer -->
+  <footer class="cosmic-footer">
+    <div class="footer-bottom">
+      <div>&copy; 2026 VirtualVerse. Master of Computer Applications Final Year Project.</div>
+      <div>Personal Bookmarks &bull; LocalStorage Sync</div>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript Modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/favorites.js"></script>
+</body>
+</html>

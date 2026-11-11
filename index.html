@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VirtualVerse – Immersive 3D Virtual Museum & Cosmic Archive</title>
+  <meta name="description" content="Explore digital museum environments, interact with 3D historical and scientific artifacts, navigate virtual rooms, and participate in interactive educational activities.">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Universal Cosmic Navbar -->
+  <header class="cosmic-navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-brand-logo"><i class="fa-solid fa-cube"></i></div>
+      <span>Virtual<span class="brand-accent">Verse</span></span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="museum.html" class="nav-link">3D Museum</a></li>
+        <li><a href="collections.html" class="nav-link">Collections</a></li>
+        <li><a href="guided-tour.html" class="nav-link">Guided Tour</a></li>
+        <li><a href="quiz.html" class="nav-link">Quiz Arena</a></li>
+        <li><a href="favorites.html" class="nav-link">Favorites</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Search button -->
+      <button class="nav-icon-btn" id="nav-search-btn" title="Search Archive (Ctrl+K or /)">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+
+      <!-- Audio Mute / Unmute button -->
+      <button class="nav-icon-btn" id="nav-audio-toggle" title="Toggle Cosmic Audio">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+
+      <!-- User Auth Profile Slot -->
+      <div id="nav-user-slot"></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION WITH LIVE 3D CANVAS BACKDROP -->
+    <section class="landing-hero">
+      <div id="hero-3d-canvas-container"></div>
+      <div class="hero-overlay-gradient"></div>
+
+      <div class="hero-content">
+        <div class="hero-super-badge">
+          <i class="fa-solid fa-atom"></i> MCA Final Year Project &bull; Cosmic Archive
+        </div>
+        <h1 class="hero-title">
+          <span class="title-gradient">VirtualVerse</span>
+        </h1>
+        <div class="hero-subtitle">Explore the Past. Experience the Future.</div>
+        <p class="hero-description">
+          Step into an architectural cosmic sanctuary housing humanity's greatest historical, scientific, and extraterrestrial treasures. Rendered in real-time 3D with interactive 360° inspection, spatial portals, and educational narratives.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="museum.html" class="cyber-btn btn-primary btn-lg">
+            <i class="fa-solid fa-person-walking"></i> Start 3D Exploration
+          </a>
+          <a href="collections.html" class="cyber-btn btn-ghost btn-lg">
+            <i class="fa-solid fa-boxes-stacked"></i> Discover Exhibitions
+          </a>
+          <a href="guided-tour.html" class="cyber-btn btn-cyan btn-lg">
+            <i class="fa-solid fa-play"></i> Virtual Guided Tour
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE METRICS COUNTER STRIP -->
+    <section class="stats-strip">
+      <div class="stats-grid">
+        <div class="stat-item-card">
+          <span class="stat-number">32+</span>
+          <span class="stat-label">Cosmic Relics</span>
+        </div>
+        <div class="stat-item-card">
+          <span class="stat-number">8</span>
+          <span class="stat-label">Curated Collections</span>
+        </div>
+        <div class="stat-item-card">
+          <span class="stat-number">5</span>
+          <span class="stat-label">3D Dimensional Halls</span>
+        </div>
+        <div class="stat-item-card">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">WebGL Three.js Realtime</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT VIRTUALVERSE ARCHITECTURE -->
+    <section class="about-section">
+      <div class="section-head">
+        <span class="section-tag">Technological Paradigm</span>
+        <h2 class="section-title">The Cosmic Archive Experience</h2>
+        <p class="section-subtitle">
+          Engineered from the ground up to replace flat static catalog websites with an evocative, spatial 3D learning metaverse.
+        </p>
+      </div>
+
+      <div class="about-features-grid">
+        <div class="feature-box">
+          <div class="feature-icon-wrap"><i class="fa-solid fa-vr-cardboard"></i></div>
+          <h3>Procedural 3D Environment</h3>
+          <p>
+            Traverse 5 distinct architectural chambers engineered with custom Three.js geometries, PBR lighting, and soft shadows—no flat simulation or placeholder images.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrap"><i class="fa-solid fa-cube"></i></div>
+          <h3>360° Inspection Studio</h3>
+          <p>
+            Rotate, zoom, and analyze 32+ historical artifacts with wireframe toggles, multi-spectrum lighting presets, and synthesized audio guide narrations.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrap"><i class="fa-solid fa-door-open"></i></div>
+          <h3>Spatial Portal Teleportation</h3>
+          <p>
+            Venture smoothly between historical antiquity, space exploration, and cybernetic art dimensions through glowing physical wormhole portals.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrap"><i class="fa-solid fa-route"></i></div>
+          <h3>Automated Guided Tours</h3>
+          <p>
+            Relax in cinematic tour mode as camera trajectories glide gracefully between flagship exhibits accompanied by voice narration and progress tracking.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrap"><i class="fa-solid fa-brain"></i></div>
+          <h3>Interactive Quiz Arena</h3>
+          <p>
+            Test your historical mastery across 22 multi-disciplinary educational questions with instant feedback, streak bonuses, and permanent achievement awards.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrap"><i class="fa-solid fa-database"></i></div>
+          <h3>Offline Persistent State</h3>
+          <p>
+            Demonstration accounts, user exploration logs, custom administrator-curated relics, and personal bookmarks are saved locally using HTML5 localStorage.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 SECTOR 3D ROOMS SHOWCASE -->
+    <section class="rooms-showcase-section">
+      <div class="section-head">
+        <span class="section-tag">Architectural Sectors</span>
+        <h2 class="section-title">Traverse Five Unique Dimensions</h2>
+        <p class="section-subtitle">Each museum chamber is crafted with custom atmospheric lighting, architectural colonnades, and sonic identity.</p>
+      </div>
+
+      <div class="rooms-showcase-grid">
+        <div class="room-preview-card" style="border-top: 3px solid #F59E0B;">
+          <div>
+            <span class="room-badge-code">ARCH-01</span>
+            <h4>Ancient Civilization Hall</h4>
+            <p>Sandstone colonnades and warm brazier glows showcasing Egyptian gold masks, hieroglyphic Rosetta stones, and Greek pottery.</p>
+          </div>
+          <a href="museum.html?room=room-ancient" class="cyber-btn btn-ghost btn-sm">Enter Sector &rarr;</a>
+        </div>
+
+        <div class="room-preview-card" style="border-top: 3px solid #00E5FF;">
+          <div>
+            <span class="room-badge-code">COSMO-02</span>
+            <h4>Space Exploration Chamber</h4>
+            <p>Open celestial observatory looking out into cosmic nebulae, Saturn's icy rings, Voyager probes, and the James Webb Space Telescope.</p>
+          </div>
+          <a href="museum.html?room=room-space" class="cyber-btn btn-ghost btn-sm">Enter Sector &rarr;</a>
+        </div>
+
+        <div class="room-preview-card" style="border-top: 3px solid #8B5CF6;">
+          <div>
+            <span class="room-badge-code">CYBER-03</span>
+            <h4>Digital Art Dimension</h4>
+            <p>Morphing 4D hypercube projections, glowing neon polyhedra, and interactive neural monoliths pulsing in violet hyperspace.</p>
+          </div>
+          <a href="museum.html?room=room-digital" class="cyber-btn btn-ghost btn-sm">Enter Sector &rarr;</a>
+        </div>
+
+        <div class="room-preview-card" style="border-top: 3px solid #10B981;">
+          <div>
+            <span class="room-badge-code">NEXUS-04</span>
+            <h4>Science & Innovation Lab</h4>
+            <p>High-tech quantum laboratory featuring double-helix DNA macromolecules, dilution refrigerator qubits, and Galileo's telescope.</p>
+          </div>
+          <a href="museum.html?room=room-science" class="cyber-btn btn-ghost btn-sm">Enter Sector &rarr;</a>
+        </div>
+
+        <div class="room-preview-card" style="border-top: 3px solid #EC4899;">
+          <div>
+            <span class="room-badge-code">CHRONO-05</span>
+            <h4>Historical Heritage Gallery</h4>
+            <p>Classical marble rotunda holding sovereign medieval longswords, Roman centurion galea helmets, and T-Rex fossil skulls.</p>
+          </div>
+          <a href="museum.html?room=room-heritage" class="cyber-btn btn-ghost btn-sm">Enter Sector &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED ARTIFACTS SHOWCASE -->
+    <section class="featured-relics-section">
+      <div class="section-head">
+        <span class="section-tag">Curated Artifacts</span>
+        <h2 class="section-title">Pinnacles of Human Ingenuity</h2>
+        <p class="section-subtitle">Click any artifact below to immediately inspect it in full 360° 3D studio mode.</p>
+      </div>
+
+      <div class="artifacts-grid">
+        <div class="relic-card">
+          <div class="relic-visual-preview"><i class="fa-solid fa-crown" style="color:#F59E0B"></i></div>
+          <h4>Mask of Tutankhamun</h4>
+          <div class="relic-meta"><i class="fa-solid fa-clock"></i> c. 1323 BCE &bull; Egypt</div>
+          <p>Royal 24-karat beaten gold burial mask inlaid with lapis lazuli and protective cobra and vulture goddesses.</p>
+          <a href="artifact-viewer.html?id=art-01" class="cyber-btn btn-primary btn-sm">Inspect in 3D</a>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-visual-preview"><i class="fa-solid fa-satellite" style="color:#00E5FF"></i></div>
+          <h4>James Webb Telescope</h4>
+          <div class="relic-meta"><i class="fa-solid fa-clock"></i> 2021 CE &bull; L2 Lagrange</div>
+          <p>18 hexagonal gold-coated beryllium mirrors with a 5-layer Kapton sunshield peering into cosmic dawn.</p>
+          <a href="artifact-viewer.html?id=art-07" class="cyber-btn btn-primary btn-sm">Inspect in 3D</a>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-visual-preview"><i class="fa-solid fa-dna" style="color:#10B981"></i></div>
+          <h4>Double Helix DNA Model</h4>
+          <div class="relic-meta"><i class="fa-solid fa-clock"></i> 1953 CE &bull; Cambridge</div>
+          <p>Illuminated macromolecular sculpture displaying base pairs that encode the biological secret of all terrestrial life.</p>
+          <a href="artifact-viewer.html?id=art-14" class="cyber-btn btn-primary btn-sm">Inspect in 3D</a>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-visual-preview"><i class="fa-solid fa-shield-halved" style="color:#EF4444"></i></div>
+          <h4>Roman Centurion Helmet</h4>
+          <div class="relic-meta"><i class="fa-solid fa-clock"></i> c. 1st Century CE &bull; Rome</div>
+          <p>Imperial Gallic bronze galea crowned with the iconic transverse crimson horsehair crest of legionary commanders.</p>
+          <a href="artifact-viewer.html?id=art-19" class="cyber-btn btn-primary btn-sm">Inspect in 3D</a>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="collections.html" class="cyber-btn btn-ghost btn-lg">
+          <i class="fa-solid fa-layer-group"></i> Browse All 32 Museum Artifacts &rarr;
+        </a>
+      </div>
+    </section>
+
+    <!-- TECHNOLOGY STACK BADGES -->
+    <section class="tech-stack-section">
+      <span class="section-tag">Pure Vanilla Web Standards</span>
+      <h2 class="section-title">Architectural Stack Specifications</h2>
+      <p class="section-subtitle">Built strictly without heavy runtime frameworks (No React, Angular, Vue, or backend dependencies).</p>
+
+      <div class="tech-pills-row">
+        <div class="tech-pill"><i class="fa-brands fa-html5"></i> HTML5 Semantic Structure</div>
+        <div class="tech-pill"><i class="fa-brands fa-css3-alt"></i> CSS3 Glassmorphism & KaTeX</div>
+        <div class="tech-pill"><i class="fa-brands fa-js"></i> JavaScript ES6 Modules</div>
+        <div class="tech-pill"><i class="fa-solid fa-cubes"></i> Three.js WebGL Engine</div>
+        <div class="tech-pill"><i class="fa-solid fa-database"></i> HTML5 LocalStorage Persistence</div>
+        <div class="tech-pill"><i class="fa-solid fa-music"></i> Web Audio API Sound Synthesizer</div>
+        <div class="tech-pill"><i class="fa-solid fa-headphones"></i> Web Speech API Voice Guide</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- UNIVERSAL COSMIC FOOTER -->
+  <footer class="cosmic-footer">
+    <div class="footer-top-grid">
+      <div class="footer-brand">
+        <h3>Virtual<span class="brand-accent">Verse</span></h3>
+        <p>An immersive 3D virtual museum and interactive exhibition platform developed as a comprehensive MCA Final Year Project.</p>
+        <div class="project-spec-pill">
+          <i class="fa-solid fa-graduation-cap"></i> MCA Final Year Project &bull; Academic Year 2026
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Cinematic Home</a></li>
+          <li><a href="museum.html">3D Museum Hall</a></li>
+          <li><a href="collections.html">Collections Directory</a></li>
+          <li><a href="guided-tour.html">Automated Guided Tour</a></li>
+          <li><a href="quiz.html">Educational Quiz</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>User Portals</h4>
+        <ul>
+          <li><a href="profile.html">Explorer Profile</a></li>
+          <li><a href="favorites.html">Saved Relics</a></li>
+          <li><a href="login.html">Sign In / Guest</a></li>
+          <li><a href="register.html">Register Account</a></li>
+          <li><a href="admin.html">Admin Curator Hall</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Demonstration Notes</h4>
+        <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.6;">
+          Authentication and data operations utilize browser LocalStorage. For evaluation, use Demo Quick-Fill on the Login page. Run locally via VS Code Live Server or Python HTTP server.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 VirtualVerse. Designed & Developed for Master of Computer Applications (MCA).</div>
+      <div>Designed with Cosmic Archive Concept &bull; Three.js r128</div>
+    </div>
+  </footer>
+
+  <!-- Three.js Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <!-- Core JavaScript Modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/procedural-models.js"></script>
+
+  <!-- Hero 3D Backdrop Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('hero-3d-canvas-container');
+      if (!container || !window.THREE) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 100);
+      camera.position.set(0, 0, 7);
+
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      // Ambient & point lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+      scene.add(ambientLight);
+      const cyanPoint = new THREE.PointLight(0x00e5ff, 2.5, 20);
+      cyanPoint.position.set(4, 3, 3);
+      scene.add(cyanPoint);
+      const violetPoint = new THREE.PointLight(0x8b5cf6, 2.5, 20);
+      violetPoint.position.set(-4, -2, 2);
+      scene.add(violetPoint);
+
+      // Starfield particles
+      const starCount = 800;
+      const starGeo = new THREE.BufferGeometry();
+      const starPos = new Float32Array(starCount * 3);
+      for (let i = 0; i < starCount * 3; i++) {
+        starPos[i] = (Math.random() - 0.5) * 35;
+      }
+      starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+      const starMat = new THREE.PointsMaterial({ size: 0.08, color: 0x00e5ff, transparent: true, opacity: 0.7 });
+      const stars = new THREE.Points(starGeo, starMat);
+      scene.add(stars);
+
+      // Floating Centerpiece: 4D Hypercube / Tesseract and Saturn Rings
+      const heroGroup = new THREE.Group();
+      scene.add(heroGroup);
+
+      const hyperCube = window.ProceduralModelFactory.createModel('tesseract_cube');
+      hyperCube.position.set(0, 0, 0);
+      hyperCube.scale.set(1.5, 1.5, 1.5);
+      heroGroup.add(hyperCube);
+
+      // Orbiting Outer Torus Ring
+      const outerRing = new THREE.Mesh(
+        new THREE.TorusGeometry(3.2, 0.03, 12, 48),
+        new THREE.MeshStandardMaterial({ color: 0x00e5ff, emissive: 0x00e5ff, emissiveIntensity: 0.8 })
+      );
+      outerRing.rotation.x = Math.PI / 3;
+      heroGroup.add(outerRing);
+
+      let mouseX = 0, mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+      });
+
+      const animate = () => {
+        requestAnimationFrame(animate);
+        heroGroup.rotation.y += 0.006;
+        heroGroup.rotation.x += 0.003;
+        outerRing.rotation.z += 0.008;
+        stars.rotation.y += 0.0008;
+
+        // Subtle interactive mouse parallax
+        camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.05;
+        camera.position.y += (mouseY * 0.8 - camera.position.y) * 0.05;
+        camera.lookAt(0, 0, 0);
+
+        renderer.render(scene, camera);
+      };
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+    });
+  </script>
+</body>
+</html>
